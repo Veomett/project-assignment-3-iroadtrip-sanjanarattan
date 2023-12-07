@@ -140,23 +140,24 @@ public class IRoadTrip {
                 if (aliasNames.containsKey(countryStartFinal)) {
                     countryStartFinal = aliasNames.get(countryStartFinal);
                 }
-    
+                
                 if (countryStart.length > 1) {
-                    String[] neighboursArray = countryStart[1].split(";");
+                    String neighboursData = countryStart[1].trim();
+                    String[] neighboursArray = neighboursData.split(";");
                     for (String neighbour : neighboursArray) {
-                        String[] neighbourWithDist = neighbour.trim().split("\\s+", 2);
-                        if (neighbourWithDist.length >= 2) {
-                            String[] parts = neighbourWithDist[0].split("\\s+");
-                            String neighbourName = parts[parts.length - 1].trim();
-                            String distanceStr = neighbourWithDist[1].trim();
+                        String[] parts = neighbour.trim().split("\\s+(?=[0-9]+\\s+km)");
+                        if (parts.length >= 2) {
+                            String neighbourName = parts[0].trim(); // Use the entire neighbor name
+                            String distanceStr = parts[1].trim();
                             int distance = getDistance(distanceStr);
-                            System.out.println(neighbourName);
                             neighbours.put(neighbourName, distance);
                         }
                     }
-    
+                
                     finalWorld.put(countryStartFinal, neighbours);
                 }
+                
+    
             }
             // printHashMap(finalWorld, "finalWorld");
         } catch (IOException e) {
