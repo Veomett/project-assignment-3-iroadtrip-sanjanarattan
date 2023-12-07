@@ -146,7 +146,7 @@ public class IRoadTrip {
                     for (String neighbour : neighboursArray) {
                         String[] neighbourWithDist = neighbour.trim().split("\\s+", 2);
                         if (neighbourWithDist.length >= 2) {
-                            String[] parts = neighbourWithDist[0].split(("(?=(?:\\S+\\s+\\S+\\s+\\S+$))"));
+                            String[] parts = neighbourWithDist[0].split("\\s+");
                             String neighbourName = parts[parts.length - 1].trim();
                             String distanceStr = neighbourWithDist[1].trim();
                             int distance = getDistance(distanceStr);
